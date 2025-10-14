@@ -1,0 +1,17 @@
+{
+  "name": "ai-proxy",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.3",
+    "axios": "^1.12.2",
+    "express": "^5.1.0"
+  }
+}
