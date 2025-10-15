@@ -6,21 +6,37 @@
 
 Этот сервер принимает запросы, предназначенные для API, совместимых с OpenAI, и динамически перенаправляет их на `baseURL`, указанный в качестве query-параметра. Это позволяет использовать один эндпоинт для доступа к разным моделям и сервисам.
 
-## Установка
-
-Для установки зависимостей выполните:
-
-```bash
-bun install
-```
+Важно отметить, что прокси не ограничивается только AI-запросами и может быть использован для перенаправления любых HTTP-запросов.
 
 ## Запуск
 
-Для запуска сервера выполните:
+Есть два способа запустить сервер:
 
-```bash
-bun run index.ts
-```
+### Локально
+
+1.  **Установите зависимости:**
+    ```bash
+    bun install
+    ```
+
+2.  **Запустите сервер:**
+    ```bash
+    bun run index.ts
+    ```
+
+### С помощью Docker
+
+[Ссылка на Docker Hub](https://hub.docker.com/r/rench321/ai-proxy)
+
+1.  **Загрузите образ из Docker Hub:**
+    ```bash
+    docker pull rench321/ai-proxy
+    ```
+
+2.  **Запустите контейнер:**
+    ```bash
+    docker run -p 3000:3000 rench321/ai-proxy
+    ```
 
 Сервер будет запущен по адресу `http://localhost:3000`.
 
@@ -50,4 +66,18 @@ const response = await openai.chat.completions.create({
 });
 
 console.log(response.choices[0].message);
+```
+
+**Пример с `curl`:**
+
+```bash
+curl "http://localhost:3000?baseURL=https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer GEMINI_API_KEY" \
+-d '{
+    "model": "gemini-2.5-flash",
+    "messages": [
+        {"role": "user", "content": "Explain to me how AI works"}
+    ]
+    }'
 ```
